@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from logging import raiseExceptions
+from xml.etree.ElementTree import Comment
+from django.shortcuts import get_object_or_404, render
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -16,9 +18,11 @@ def get_all_comments(request,pk):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-@api_view(['PUT', 'POST'])
+
+@api_view(['POST', 'PUT'])
 @permission_classes([IsAuthenticated])
-def post_comment(request):
+def comments(request,pk):
+    comment = get_object_or_404(Comments,pk=pk)
     print(
         'User ', f"{request.user.id} {request.user.email} {request.user.username}")
     if request.method == 'POST':
@@ -27,7 +31,21 @@ def post_comment(request):
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    # elif request.method == 'PUT':
-    #     # comments = Comments.objects.filter(user_id=request.user.id)
-    #     serializer = CommentsSerializer(cars, many=True)
-    #     return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = CommentsSerializer(comment,data = request.data)
+        serializer.is_valid(raise_exception = True)
+        serializer.save()
+        return Response(serializer.data,status=status.HTTP_200_OK)
+    
+
+
+
+
+
+# @api_view(['PUT'])
+# @permission_classes([IsAuthenticated])
+# def update_comment(request,comment_id):
+#     comments = Comments.objects.filter(user_id=request.user.id)
+#     serializer = CommentsSerializer(comments, many=True)
+#     return Response(serializer.data)
+        
