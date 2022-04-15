@@ -9,11 +9,12 @@ li {
 }
 
 .navBar {
-  background: steelblue;
+  background: rgb(16 17 18 / 83%);
   box-shadow: 4px 2px 5px gray;
   color: white;
   margin-bottom: 2rem;
-  padding: 1.5rem 2rem;
+  padding: 0.5rem 1rem;
+  height: 4rem;
 }
 
 .navBar button {
@@ -22,8 +23,7 @@ li {
   color: white;
   padding: 0.4rem 0.5rem;
 }
-
-.navBar button:hover {
+∏ .navBar button:hover {
   background: white;
   color: steelblue;
   cursor: pointer;
@@ -32,4 +32,35 @@ li {
 .brand {
   cursor: pointer;
   font-size: 2rem;
+}
+
+/* new css */
+.logo-img {
+  height: 25px;
+  margin-left: 20px;
+}
+.right-nav-cluster {
+  display: flex;
+  justify-content: space-between;
+}
+.search-field {
+  width: 33vw;
+  height:25px;
+  border: 1px solid black;
+  outline: none;
+
+}
+.search-button {
+  background: transparent;
+  background-color: grey;
+  border: none;
+  outline: none;
+  margin-left: -33px;
+}
+.center-nav-cluster{
+  display: flex;
+  align-items: center;
+}
+.MuiSvgIcon-root{
+width:2em;  
 }
