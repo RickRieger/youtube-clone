@@ -1,8 +1,10 @@
 import React from "react";
 import { useEffect, useState } from "react";
-
+import Sidebar from "../../components/Sidebar/Sidebar";
+import SuggestedVideos from "../../components/SuggestedVideos/SuggestedVideos";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
+import './Home.css'
 
 const HomePage = () => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
@@ -27,13 +29,19 @@ const HomePage = () => {
   }, [token]);
   return (
     <div className="container">
-      <h1>Home Page for {user.username}!</h1>
-      {cars &&
+      {/* <h1 style={{color:'white'}}>Home Page for {user.username}!</h1> */}
+      <div className="app__page">
+        <Sidebar/>
+        <SuggestedVideos />
+      </div>
+
+
+      {/* {cars &&
         cars.map((car) => (
           <p key={car.id}>
             {car.year} {car.model} {car.make}
           </p>
-        ))}
+        ))} */}
     </div>
   );
 };

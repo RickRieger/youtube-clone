@@ -1,0 +1,23 @@
+.sidebar__row {
+  display: flex;
+  align-content: center;
+  padding: 10px 20px;
+  height:45px;
+}
+.sidebar__row:hover {
+  background-color: rgb(66, 65, 65);
+  cursor: pointer;
+}
+.sidebar__row__icon {
+  color: rgb(251, 251, 251);
+  font-size: 1.5rem !important;
+  margin-right: 20px;
+}
+.sidebar__row__title {
+  color: rgb(0, 0, 0);
+  flex: 1 !important;
+  font-size: 0.9rem;
+  display: flex;
+  align-content: center;
+  margin-top: 5px;
+}

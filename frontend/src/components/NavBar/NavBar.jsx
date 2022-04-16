@@ -30,16 +30,17 @@ const Navbar = () => {
           />
         </li>
 
-        <li className="center-nav-cluster">
-          <input type='text' className='search-field'/>
-          <SearchIcon style = {{ color : "white"}} className='search-button'/>
+        <li className='center-nav-cluster'>
+          <input type='text' className='search-field' placeholder='Search' />
+          <SearchIcon
+          
+            className='search-button'
+          />
         </li>
-
-        <li></li>
         <li className='right-nav-cluster'>
           {user ? (
             <div>
-              <VideoCallOutlinedIcon /> <AppsIcon /> <NotificationsIcon />{' '}
+              <VideoCallOutlinedIcon className='header_icons' /> <AppsIcon className='header_icons' /> <NotificationsIcon className='header_icons' />{' '}
             </div>
           ) : (
             <div>

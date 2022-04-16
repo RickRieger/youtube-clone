@@ -1,0 +1,6 @@
+.sidebar {
+  flex: 0.085;
+  border: 1px solid black;
+  background-color: #212121;
+  font-family: "Roboto","Arial",sans-serif;
+}
