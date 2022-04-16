@@ -1,4 +1,8 @@
-.suggested__videos{
-  flex:.915;
-  border:1px solid black;
+.suggested__videos {
+  flex: 0.915;
+  border: 1px solid black;
+  background-color: #181818;
+  padding: 40px 20px;
+  padding-bottom: 0;
+  height:100vh
 }

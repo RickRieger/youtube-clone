@@ -2,14 +2,21 @@
   display: flex;
   align-content: center;
   padding: 10px 20px;
-  height:45px;
+  height: 45px;
 }
 .sidebar__row:hover {
-  background-color: rgb(66, 65, 65);
+  background-color: rgb(65, 65, 66);
   cursor: pointer;
 }
+.sidebar__row:hover > .sidebar__row__title {
+  color: rgb(21, 219, 233);
+  font-weight: bold;
+}
+.sidebar__row:hover > .sidebar__row__icon {
+  color: rgb(21, 191, 233);
+}
 .sidebar__row__icon {
-  color: rgb(251, 251, 251);
+  color: rgb(121, 121, 121);
   font-size: 1.5rem !important;
   margin-right: 20px;
 }
@@ -20,4 +27,13 @@
   display: flex;
   align-content: center;
   margin-top: 5px;
+}
+.selected{
+  background-color: rgb(65, 65, 66);
+}
+.selected > .sidebar__row__title{
+  color: rgb(21, 219, 233);
+}
+.selected > .sidebar__row__icon{
+  color: rgb(21, 191, 233);
 }
