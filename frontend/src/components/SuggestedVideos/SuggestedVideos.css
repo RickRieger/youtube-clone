@@ -6,3 +6,9 @@
   padding-bottom: 0;
   height:100vh
 }
+
+.suggestedVideos_videos{
+  display:flex;
+  flex-wrap: wrap;
+  
+}

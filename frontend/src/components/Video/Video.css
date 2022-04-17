@@ -1,0 +1,32 @@
+.videoContainer{
+    width : 270px;
+    margin-bottom:40px
+
+}
+
+.videoThumbnail{
+    height: 140px;
+    width:250px;
+
+}
+
+.videoContainerInfo{
+    display:flex;
+    padding-right: 30px;
+    margin-top: 10px;
+
+}
+
+.videoTitleText{
+    color: white;
+    margin-left: 10px;
+    font-size: medium;
+}
+
+.videoViewsText{
+    margin-left: 10px;
+    color:gray;
+    font-size: small;
+    line-height: 15px;
+
+}
