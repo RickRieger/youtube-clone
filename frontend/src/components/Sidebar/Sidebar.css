@@ -4,9 +4,7 @@
   background-color: #212121;
   font-family: 'Roboto', 'Arial', sans-serif;
   height: 100vh;
-  position: sticky;
-  top: 0;
-  left: 0;
+
 }
 .sidebar > hr {
   height: 0.5px;

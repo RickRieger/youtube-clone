@@ -13,6 +13,7 @@ import Footer from "./components/Footer/Footer";
 
 // Util Imports
 import PrivateRoute from "./utils/PrivateRoute";
+import SelectedVideo from "./components/SelectedVideo/SelectedVideo";
 
 function App() {
   return (
@@ -22,13 +23,14 @@ function App() {
         <Route
           path="/"
           element={
-            <PrivateRoute>
+          //  <PrivateRoute>
               <HomePage />
-            </PrivateRoute>
+            // </PrivateRoute>
           }
         />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path = "/selected-video/:videoId" element = {<SelectedVideo />} />
       </Routes>
       <Footer />
     </div>

@@ -2,7 +2,12 @@ import React, { useEffect, useState } from 'react';
 import './SuggestedVideos.css';
 import Video from '../Video/Video';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 function SuggestedVideos() {
+  const navigate = useNavigate()
+
+
   useEffect(() => {
     getAllPopularVideos();
   }, []);
@@ -40,6 +45,7 @@ function SuggestedVideos() {
                 title={video.snippet.title}
                 channel={video.snippet.channelTitle}
                 views={video.statistics.viewCount}
+                video_id = {video.id}
                 uploadDate={video.snippet.publishedAt}
               />
             );
