@@ -1,14 +1,15 @@
 .suggested__videos {
   flex: 0.915;
+  display: flex;
+  justify-content: space-evenly;
   border: 1px solid black;
   background-color: #181818;
-  padding: 40px 20px;
+  padding: 100px 140px;
   padding-bottom: 0;
-  height:100vh
+  height: 100vh;
 }
 
-.suggestedVideos_videos{
-  display:flex;
+.suggestedVideos_videos {
+  display: flex;
   flex-wrap: wrap;
-  
 }

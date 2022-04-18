@@ -1,32 +1,34 @@
-.videoContainer{
-    width : 270px;
-    margin-bottom:40px
-
+.videoContainer {
+  width: 300px;
+  height: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+  box-shadow: 0 0 2.5em rgb(0 16 233 / 17%);
+  border: 2px solid #29292b;
+  padding: 15px;
 }
 
-.videoThumbnail{
-    height: 140px;
-    width:250px;
-
+.videoThumbnail {
+  height: 140px;
+  width: 250px;
 }
 
-.videoContainerInfo{
-    display:flex;
-    padding-right: 30px;
-    margin-top: 10px;
-
+.videoContainerInfo {
+  display: flex;
+  padding-right: 30px;
+  margin-top: 10px;
 }
 
-.videoTitleText{
-    color: white;
-    margin-left: 10px;
-    font-size: medium;
+.videoTitleText {
+  color: white;
+  margin-left: 10px;
+  font-size: medium;
 }
 
-.videoViewsText{
-    margin-left: 10px;
-    color:gray;
-    font-size: small;
-    line-height: 15px;
-
+.videoViewsText {
+  margin-left: 10px;
+  color: gray;
+  font-size: small;
+  line-height: 15px;
 }
