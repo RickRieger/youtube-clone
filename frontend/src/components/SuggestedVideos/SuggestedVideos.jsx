@@ -5,8 +5,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function SuggestedVideos() {
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     getAllPopularVideos();
@@ -19,7 +18,7 @@ function SuggestedVideos() {
   const getAllPopularVideos = async () => {
     try {
       let result = await axios.get(
-        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=US&key=AIzaSyBQhKr8cZztWfy65bHIfq6m-rAINaBZ4yc`
+        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=US&key=${process.env.REACT_APP_API_KEY}`
       );
 
       setPopularVideos(result.data.items);
@@ -45,7 +44,7 @@ function SuggestedVideos() {
                 title={video.snippet.title}
                 channel={video.snippet.channelTitle}
                 views={video.statistics.viewCount}
-                video_id = {video.id}
+                video_id={video.id}
                 uploadDate={video.snippet.publishedAt}
               />
             );

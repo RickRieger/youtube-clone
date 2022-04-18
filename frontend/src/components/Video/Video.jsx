@@ -6,14 +6,16 @@ import { useNavigate } from 'react-router-dom';
 // TODO: setup up props to get thumbnail, title, channel, views and timestamp
 
 const Video = (props) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleOnClick = (videoId) => {
-    navigate(`/selected-video/${videoId}`)
-  }
-console.log(props.video_id)
+    navigate(`/selected-video/${videoId}`);
+  };
 
   return (
-    <div className='videoContainer' onClick = { () => handleOnClick(props.video_id) }>
+    <div
+      className='videoContainer'
+      onClick={() => handleOnClick(props.video_id)}
+    >
       <img className='videoThumbnail' src={props.image}></img>
       <div className='videoContainerInfo'>
         <div className='videoContainerText'>
