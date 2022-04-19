@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './SelectedVideo.css';
 import Video from '../../components/Video/Video';
@@ -7,6 +7,7 @@ import Video from '../../components/Video/Video';
 
 function SelectedVideo() {
   const params = useParams();
+  const navigate = useNavigate();
   const [videoInfo, setVideoInfo] = useState(null);
   const [relatedVideos, setRelatedVideos] = useState(null);
 
@@ -38,6 +39,9 @@ function SelectedVideo() {
       console.log(e.message);
     }
   };
+  const handleOnClick = (videoId) => {
+    navigate(`/selected-video/${videoId}`)
+  }
 
   console.log(videoInfo);
   console.log(relatedVideos);
@@ -68,14 +72,16 @@ function SelectedVideo() {
             {relatedVideos.map((video, index) => {
               console.log(video)
               return (
+
                 <Video
                   key={index}
-                  // image={video.snippet.thumbnails.high.url}
-                  // title={video.snippet.title}
+                  image={video.snippet.thumbnails.high.url}
+                  title={video.snippet.title}
                   channel={video.snippet.channelTitle}
                   // views={viewCount ? viewCount : ''}
                   video_id={video.id}
                   uploadDate={video.snippet.publishedAt}
+                  onClick = {() => handleOnClick(video.id)}
                 />
               );
             })}
