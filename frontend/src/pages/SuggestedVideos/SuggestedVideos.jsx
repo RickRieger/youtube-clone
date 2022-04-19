@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import './SuggestedVideos.css';
-import Video from '../Video/Video';
+import Video from '../../components/Video/Video';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function SuggestedVideos() {
   const navigate = useNavigate();
+  const params = useParams();
+  const [videos, setVideos] = useState([]);
 
   useEffect(() => {
-    getAllPopularVideos();
-  }, []);
-
-  const [popularVideos, setPopularVideos] = useState([]);
+    if (params.query) {
+      handleSearch();
+    } else {
+      getAllPopularVideos();
+    }
+  }, [params.query]);
 
   console.log(process.env.REACT_APP_API_KEY);
 
@@ -21,29 +26,38 @@ function SuggestedVideos() {
         `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=20&regionCode=US&key=${process.env.REACT_APP_API_KEY}`
       );
 
-      setPopularVideos(result.data.items);
+      setVideos(result.data.items);
     } catch (e) {
       console.log(e.message);
     }
   };
 
-  console.log(popularVideos);
+  const handleSearch = async () => {
+    try {
+      let result = await axios.get(
+        `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${params.query}&key=${process.env.REACT_APP_API_KEY}`
+      );
 
-  if (!popularVideos) {
-    console.log(popularVideos);
+      setVideos(result.data.items);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+  console.log(videos);
+  if (!videos) {
     return <div>'loading...'</div>;
   } else {
     return (
       <div className='suggested__videos'>
         <div className='suggestedVideos_videos'>
-          {popularVideos.map((video) => {
+          {videos.map((video, index) => {
             return (
               <Video
-                key={video.id}
+                key={index}
                 image={video.snippet.thumbnails.high.url}
                 title={video.snippet.title}
                 channel={video.snippet.channelTitle}
-                views={video.statistics.viewCount}
+                // views={video.statistics.viewCount}
                 video_id={video.id}
                 uploadDate={video.snippet.publishedAt}
               />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import AuthContext from '../../context/AuthContext';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -15,7 +15,27 @@ import './NavBar.css';
 
 const Navbar = () => {
   const { logoutUser, user } = useContext(AuthContext);
+  const [query, setQuery] = useState('');
+
   const navigate = useNavigate();
+
+  const handleSearchQuery = () => {
+    if (query.length === 0) {
+      alert('please enter a proper search query!');
+      return;
+    }
+    navigate(`/${query}`);
+    setQuery('');
+  };
+
+  const handleOnChange = (e) => {
+    console.log(e.target.value);
+    setQuery(e.target.value);
+    if (e.key === 'Enter') {
+      handleSearchQuery();
+    }
+  };
+
   return (
     <div className='navBar'>
       <ul>
@@ -31,16 +51,26 @@ const Navbar = () => {
         </li>
 
         <li className='center-nav-cluster'>
-          <input type='text' className='search-field' placeholder='Search' />
-          <SearchIcon
-          
-            className='search-button'
+          <input
+            type='text'
+            value={query}
+            className='search-field'
+            placeholder='Search'
+            onChange={(e) => handleOnChange(e)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleSearchQuery();
+              }
+            }}
           />
+          <SearchIcon className='search-button' onClick={handleSearchQuery} />
         </li>
         <li className='right-nav-cluster'>
           {user ? (
             <div>
-              <VideoCallOutlinedIcon className='header_icons' /> <AppsIcon className='header_icons' /> <NotificationsIcon className='header_icons' />{' '}
+              <VideoCallOutlinedIcon className='header_icons' />{' '}
+              <AppsIcon className='header_icons' />{' '}
+              <NotificationsIcon className='header_icons' />{' '}
             </div>
           ) : (
             <div>
