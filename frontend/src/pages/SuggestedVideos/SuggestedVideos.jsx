@@ -44,6 +44,7 @@ function SuggestedVideos() {
     }
   };
   console.log(videos);
+  // const viewCount = videos.statistics.viewCount;
   if (!videos) {
     return <div>'loading...'</div>;
   } else {
@@ -57,7 +58,7 @@ function SuggestedVideos() {
                 image={video.snippet.thumbnails.high.url}
                 title={video.snippet.title}
                 channel={video.snippet.channelTitle}
-                // views={video.statistics.viewCount}
+                // views={viewCount ? viewCount : ''}
                 video_id={video.id}
                 uploadDate={video.snippet.publishedAt}
               />

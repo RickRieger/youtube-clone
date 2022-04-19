@@ -14,7 +14,11 @@ const Video = (props) => {
       className='videoContainer'
       onClick={() => handleOnClick(props.video_id)}
     >
-      <img className='videoThumbnail' src={props.image}></img>
+      <img
+        className='videoThumbnail'
+        src={props.image}
+        alt='No image available'
+      ></img>
       <div className='videoContainerInfo'>
         <div className='videoContainerText'>
           <p className='videoTitleText'>{props.title}</p>
