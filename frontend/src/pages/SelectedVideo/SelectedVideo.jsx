@@ -3,6 +3,7 @@ import { useParams,useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './SelectedVideo.css';
 import Video from '../../components/Video/Video';
+import Comment from '../../components/Comments/Comments';
 
 
 function SelectedVideo() {
@@ -91,6 +92,9 @@ function SelectedVideo() {
                 />
               );
             })}
+          </div>
+          <div>
+            <Comment videoId = {params.videoId}/>
           </div>
 
         </div>
