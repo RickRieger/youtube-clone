@@ -1,0 +1,31 @@
+.video-responsive {
+    overflow: hidden;
+    padding-bottom: 56.25%;
+    position: relative;
+    height: 0;
+  }
+  
+  .video-responsive iframe {
+    left: 0;
+    top: 0;
+    height: 80%;
+    width: 100%;
+    position: absolute;
+  }
+.bottom-container{
+  display: flex;
+  flex-direction: row;
+  margin-top:-120px;
+  color:azure;
+}
+.comment-section{
+flex:.7;
+background-color: rgb(46, 45, 45);
+height:500px
+  }
+
+.related-videos{
+flex:.3;
+background-color: rgb(38, 38, 38);
+height:500px;
+}

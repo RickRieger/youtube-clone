@@ -1,9 +1,13 @@
 .sidebar {
-  flex: 0.085;
+  flex: 0.2;
   border: 1px solid black;
   background-color: #212121;
   font-family: 'Roboto', 'Arial', sans-serif;
   height: 100vh;
+  position: sticky;
+  top:4rem;
+  left:0rem;
+  overflow: hidden;
 
 }
 .sidebar > hr {

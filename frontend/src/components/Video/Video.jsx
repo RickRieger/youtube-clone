@@ -1,9 +1,7 @@
-import react from 'react';
+import React from 'react';
 import moment from 'moment';
 import './Video.css';
-import Avatar from '@material-ui/core/Avatar';
 import { useNavigate } from 'react-router-dom';
-// TODO: setup up props to get thumbnail, title, channel, views and timestamp
 
 const Video = (props) => {
   const navigate = useNavigate();

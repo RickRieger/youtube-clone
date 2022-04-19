@@ -21,7 +21,7 @@
   margin-right: 20px;
 }
 .sidebar__row__title {
-  color: rgb(0, 0, 0);
+  color: rgb(130, 129, 129);
   flex: 1 !important;
   font-size: 0.9rem;
   display: flex;
