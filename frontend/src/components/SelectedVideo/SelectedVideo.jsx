@@ -54,7 +54,10 @@ function SelectedVideo() {
         <div className='bottom-container'>
           <div className='comment-section'>
             <div className='comment-row-one'>{videoInfo.snippet.title}</div>
-            <div className='comment-row-two'>{videoInfo.snippet.title}</div>
+            <div className='comment-row-two'>
+              {videoInfo.statistics.viewCount} views .{' '}
+              {videoInfo.snippet.publishedAt}
+            </div>
           </div>
           <div className='related-videos'></div>
         </div>

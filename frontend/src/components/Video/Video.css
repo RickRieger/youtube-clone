@@ -1,17 +1,20 @@
 .videoContainer {
-  width: 250px;
-  height: 300px;
+  width: 23rem;
+  height: 25rem;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 40px;
-  box-shadow: 0 0 .5em rgb(21, 219, 233);
+  box-shadow: 0 0 0.5em rgb(21 219 233);
   border: 2px solid #29292b;
   padding: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
 .videoThumbnail {
-  height: 100px;
-  width: 200px;
+  height: 15rem;
+  width: 20rem;
+  object-fit: none;
 }
 
 .videoContainerInfo {
