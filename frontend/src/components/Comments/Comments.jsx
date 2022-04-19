@@ -16,7 +16,7 @@ const Comment = (props) => {
 
     async function getAllComments(){
         try{
-            let response = await axios.get(`http://127.0.0.1:8000/api/comments/${props.videoId}`,{
+            let response = await axios.get(`http://127.0.0.1:8000/api/comments/${props.videoId}/`, {
                 headers : {
                     Authorization: "Bearer " + token,
                 }
@@ -33,8 +33,9 @@ const Comment = (props) => {
             video: props.videoId,
             text : comment
         }
-        try {
-            let response = axios.post(`http://127.0.0.1:8000/api/comments/${props.videoId}`,body,{
+        try { 
+            console.log("Adding post ...")
+            let response = axios.post(`http://127.0.0.1:8000/api/comments/${props.videoId}/`,body,{
                 headers: {
                     Authorization: "Bearer " + token,
                 }
@@ -56,18 +57,20 @@ const Comment = (props) => {
 
     return ( 
         <div>
-            <input
-            type='text'
-            value={comment}
-            className='search-field'
-            placeholder='Comment...'
-            onChange={(e) => setComment(e.target.value)}
-            onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-                handleSubmit();
-            }
-            }}
-        /> 
+            <button>
+                <input
+                type='text'
+                value={comment}
+                className='search-field'
+                placeholder='Comment...'
+                onChange={(e) => setComment(e.target.value)}
+                onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                    handleSubmit();
+                }
+                }}
+            /> 
+        </button>
         <div className="comments">
             <ul> 
                 {comments.map((comment) => {
