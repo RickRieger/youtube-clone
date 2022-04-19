@@ -14,7 +14,8 @@ function SelectedVideo() {
   useEffect(() => {
     getVideoInfoByID();
     getRelatedVideos();
-  }, []);
+    window.scrollTo(0,0)
+  }, [params.videoId]);
 
   const getRelatedVideos = async () => {
     try {
@@ -41,6 +42,7 @@ function SelectedVideo() {
   };
   const handleOnClick = (videoId) => {
     navigate(`/selected-video/${videoId}`)
+    console.log(videoId)
   }
 
   console.log(videoInfo);
@@ -69,19 +71,23 @@ function SelectedVideo() {
             </div>
           </div>
           <div className='related-videos'>
-            {relatedVideos.map((video, index) => {
+            {relatedVideos.filter((video) =>{
+              if("snippet" in video){
+                return true
+              }
+            }).map((video, index) => {
               console.log(video)
               return (
 
                 <Video
                   key={index}
-                  image={video.snippet.thumbnails.high.url}
-                  title={video.snippet.title}
-                  channel={video.snippet.channelTitle}
-                  // views={viewCount ? viewCount : ''}
-                  video_id={video.id}
-                  uploadDate={video.snippet.publishedAt}
-                  onClick = {() => handleOnClick(video.id)}
+                  image={video.snippet.thumbnails.default.url && video.snippet.thumbnails.default.url}
+                  title={video.snippet.title && video.snippet.title}
+                  channel={video.snippet.channelTitle && video.snippet.channelTitle}
+                  // views={video.snippet.viewCount ? video.snippet.viewCount : ''}
+                  video_id={video.id.videoId && video.id.videoId}
+                  uploadDate={video.snippet.publishedAt && video.snippet.publishedAt}
+                  onClick = {() => handleOnClick(video.id.videoId)}
                 />
               );
             })}
@@ -94,3 +100,5 @@ function SelectedVideo() {
 }
 
 export default SelectedVideo;
+
+
