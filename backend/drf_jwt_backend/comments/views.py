@@ -9,9 +9,9 @@ from .models import Comments
 from .serializers import CommentsSerializer
 
 # Create your views here.
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 @permission_classes([AllowAny])
-def comments(request,pk=''):
+def comments(request,pk):
     if request.method == 'GET':
         comments = Comments.objects.filter(video = pk)
         serializer = CommentsSerializer(comments, many=True)
@@ -24,18 +24,25 @@ def comments(request,pk=''):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['PUT'])
+@api_view(['PUT', 'POST'])
 @permission_classes([IsAuthenticated])
-def comments_details(request,pk):
-    comment = get_object_or_404(Comments,pk=pk)
+def comments_details(request,pk=''):
+    if(pk != ''):
+        comment = get_object_or_404(Comments,pk=pk)
     print(
-        'User ', f"{request.user.id} {request.user.email} {request.user.username}")
+        'User======================================= ', f"{request.user.id} {request.user.email} {request.user.username}")
 
     if request.method == 'PUT':
         serializer = CommentsSerializer(comment,data = request.data)
         serializer.is_valid(raise_exception = True)
         serializer.save()
         return Response(serializer.data,status=status.HTTP_200_OK)
+    elif request.method == 'POST':
+        serializer = CommentsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user, username = request.user.username)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
 

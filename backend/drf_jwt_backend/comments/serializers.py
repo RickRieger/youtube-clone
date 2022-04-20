@@ -7,5 +7,5 @@ from .models import Comments
 class CommentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comments
-        fields = ['id', 'user_id', 'video', 'text', 'likes','dislikes']
+        fields = ['id', 'user_id', 'video', 'text', 'likes','dislikes', 'created', 'updated', 'username']
         depth = 1

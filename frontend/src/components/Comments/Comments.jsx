@@ -21,7 +21,7 @@ const Comments = (props) => {
   useEffect(() => {
     getAllComments();
     setUpdatePage(false);
-  }, [updatePage]);
+  }, [updatePage, props.videoId]);
 
   async function getAllComments() {
     try {
@@ -56,8 +56,16 @@ const Comments = (props) => {
     }
   }
 
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (userComment.length === 0) {
+      e.preventDefault();
+      alert('cant be empty');
+      return;
+    }
+
     postComment(userComment);
+    setUserComment('');
   }
 
   console.log('comments===========>', comments);
@@ -86,12 +94,19 @@ const Comments = (props) => {
           onChange={(e) => setUserComment(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
-              handleSubmit();
+              handleSubmit(e);
             }
           }}
         />
         <Button variant='text'>CANCEL</Button>
-        <Button variant='outlined'>COMMENT</Button>
+        <Button
+          variant='outlined'
+          onClick={(e) => {
+            handleSubmit(e);
+          }}
+        >
+          COMMENT
+        </Button>
         <Comment videoId={params.videoId} />
       </Box>
       {/* <input
@@ -108,18 +123,21 @@ const Comments = (props) => {
       /> */}
 
       <div className='comments'>
-        {comments.map((comment, index) => {
-          return (
-            <Comment
-              key={index}
-              comment={comment.text}
-              commentId={comment.id}
-              userId={comment.user_id}
-              likes={comment.likes}
-              dislikes={comment.dislikes}
-            />
-          );
-        })}
+        {comments
+          .slice(0)
+          .reverse()
+          .map((comment, index) => {
+            return (
+              <Comment
+                key={index}
+                comment={comment.text}
+                commentId={comment.id}
+                userId={comment.user_id}
+                likes={comment.likes}
+                dislikes={comment.dislikes}
+              />
+            );
+          })}
       </div>
     </div>
   );

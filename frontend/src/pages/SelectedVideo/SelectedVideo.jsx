@@ -105,6 +105,7 @@ function SelectedVideo() {
                       video.snippet.publishedAt && video.snippet.publishedAt
                     }
                     onClick={() => handleOnClick(video.id.videoId)}
+                    suggest={false}
                   />
                 );
               })}

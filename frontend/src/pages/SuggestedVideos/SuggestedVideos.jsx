@@ -61,6 +61,7 @@ function SuggestedVideos() {
                 // views={viewCount ? viewCount : ''}
                 video_id={video.id}
                 uploadDate={video.snippet.publishedAt}
+                suggest={true}
               />
             );
           })}

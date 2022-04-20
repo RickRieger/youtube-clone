@@ -30,6 +30,7 @@ function Comment(props) {
   console.log(replies);
   return (
     <div>
+      <h2>{}</h2>
       <h3>{comment}</h3>
     </div>
   );

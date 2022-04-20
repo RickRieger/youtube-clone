@@ -11,7 +11,7 @@ const Video = (props) => {
 
   return (
     <div
-      className='videoContainer'
+      className={props.suggest ? 'videoContainer' : 'videoContainer-suggested'}
       onClick={() => handleOnClick(props.video_id)}
     >
       <img
