@@ -9,29 +9,29 @@ from .models import Comments
 from .serializers import CommentsSerializer
 
 # Create your views here.
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 @permission_classes([AllowAny])
-def get_all_comments(request,pk):
+def comments(request,pk=''):
     if request.method == 'GET':
         comments = Comments.objects.filter(video = pk)
         serializer = CommentsSerializer(comments, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-
-@api_view(['POST', 'PUT'])
-@permission_classes([IsAuthenticated])
-def comments(request,pk):
-    comment = get_object_or_404(Comments,pk=pk)
-    print(
-        'User ', f"{request.user.id} {request.user.email} {request.user.username}")
-    if request.method == 'POST':
+    elif request.method == 'POST':
         serializer = CommentsSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    elif request.method == 'PUT':
+
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def comments_details(request,pk):
+    comment = get_object_or_404(Comments,pk=pk)
+    print(
+        'User ', f"{request.user.id} {request.user.email} {request.user.username}")
+
+    if request.method == 'PUT':
         serializer = CommentsSerializer(comment,data = request.data)
         serializer.is_valid(raise_exception = True)
         serializer.save()
