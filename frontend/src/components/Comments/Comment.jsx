@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import useAuth from '../../hooks/useAuth';
+import moment from 'moment';
 
 function Comment(props) {
   useEffect(() => {
@@ -8,7 +9,8 @@ function Comment(props) {
   }, []);
   const auth = useAuth();
   const [user, token] = auth;
-  const { comment, commentId, userId, likes, dislikes } = props;
+  const { comment, commentId, userId, likes, dislikes, username, created } =
+    props;
   const [replies, setReplies] = useState([]);
   const [reply, setReply] = useState('');
 
@@ -30,7 +32,10 @@ function Comment(props) {
   console.log(replies);
   return (
     <div>
-      <h2>{}</h2>
+      <p>
+        {username} {moment(created).startOf('hour').fromNow()}
+      </p>
+      <span>hello</span>
       <h3>{comment}</h3>
     </div>
   );

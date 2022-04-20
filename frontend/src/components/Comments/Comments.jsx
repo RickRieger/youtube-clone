@@ -123,21 +123,21 @@ const Comments = (props) => {
       /> */}
 
       <div className='comments'>
-        {comments
-          .slice(0)
-          .reverse()
-          .map((comment, index) => {
-            return (
-              <Comment
-                key={index}
-                comment={comment.text}
-                commentId={comment.id}
-                userId={comment.user_id}
-                likes={comment.likes}
-                dislikes={comment.dislikes}
-              />
-            );
-          })}
+        {comments.reverse().map((comment, index) => {
+          console.log('============well then===========');
+          return (
+            <Comment
+              key={index}
+              comment={comment.text}
+              commentId={comment.id}
+              userId={comment.user_id}
+              username={comment.username}
+              likes={comment.likes}
+              dislikes={comment.dislikes}
+              created={comment.created}
+            />
+          );
+        })}
       </div>
     </div>
   );
