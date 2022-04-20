@@ -1,0 +1,9 @@
+.comments {
+  display: flex;
+  flex-direction: column;
+}
+li {
+  color: black;
+}
+.fun {
+}

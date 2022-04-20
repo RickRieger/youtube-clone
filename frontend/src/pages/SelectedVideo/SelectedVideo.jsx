@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useParams,useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './SelectedVideo.css';
 import Video from '../../components/Video/Video';
-import Comment from '../../components/Comments/Comments';
-
+import Comments from '../../components/Comments/Comments';
+import moment from 'moment';
 
 function SelectedVideo() {
   const params = useParams();
@@ -15,7 +15,7 @@ function SelectedVideo() {
   useEffect(() => {
     getVideoInfoByID();
     getRelatedVideos();
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0);
   }, [params.videoId]);
 
   const getRelatedVideos = async () => {
@@ -23,7 +23,7 @@ function SelectedVideo() {
       let result = await axios.get(
         `https://youtube.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${params.videoId}&type=video&key=${process.env.REACT_APP_API_KEY}`
       );
-      console.log(result)
+      console.log(result);
       setRelatedVideos(result.data.items);
     } catch (e) {
       console.log(e.message);
@@ -31,6 +31,9 @@ function SelectedVideo() {
   };
 
   const getVideoInfoByID = async () => {
+    console.log(
+      `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${params.videoId}&key=${process.env.REACT_APP_API_KEY}`
+    );
     try {
       let result = await axios.get(
         `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${params.videoId}&key=${process.env.REACT_APP_API_KEY}`
@@ -42,9 +45,9 @@ function SelectedVideo() {
     }
   };
   const handleOnClick = (videoId) => {
-    navigate(`/selected-video/${videoId}`)
-    console.log(videoId)
-  }
+    navigate(`/selected-video/${videoId}`);
+    console.log(videoId);
+  };
 
   console.log(videoInfo);
   console.log(relatedVideos);
@@ -64,39 +67,48 @@ function SelectedVideo() {
         </div>
         <div className='bottom-container'>
           <div className='comment-section'>
-            <div className='comment-row-one'>{videoInfo.snippet.title}</div>
-            <div className='comment-row-two'>
-              {videoInfo.statistics.viewCount} views .{' '}
-              {videoInfo.snippet.publishedAt}
-              {videoInfo.snippet.description}
+            <div className='comment-row-one'>
+              <h2>{videoInfo.snippet.title}</h2>
             </div>
+            <div className='comment-row-two'>
+              {videoInfo.statistics.viewCount} views ·{' '}
+              {moment(videoInfo.snippet.publishedAt).format('ll')}
+            </div>
+            <hr />
+            <div className='description'>{videoInfo.snippet.description}</div>
+            <hr />
+            <Comments videoId={params.videoId} />
           </div>
           <div className='related-videos'>
-            {relatedVideos.filter((video) =>{
-              if("snippet" in video){
-                return true
-              }
-            }).map((video, index) => {
-              console.log(video)
-              return (
-
-                <Video
-                  key={index}
-                  image={video.snippet.thumbnails.default.url && video.snippet.thumbnails.default.url}
-                  title={video.snippet.title && video.snippet.title}
-                  channel={video.snippet.channelTitle && video.snippet.channelTitle}
-                  // views={video.snippet.viewCount ? video.snippet.viewCount : ''}
-                  video_id={video.id.videoId && video.id.videoId}
-                  uploadDate={video.snippet.publishedAt && video.snippet.publishedAt}
-                  onClick = {() => handleOnClick(video.id.videoId)}
-                />
-              );
-            })}
+            {relatedVideos
+              .filter((video) => {
+                if ('snippet' in video) {
+                  return true;
+                }
+              })
+              .map((video, index) => {
+                console.log(video);
+                return (
+                  <Video
+                    key={index}
+                    image={
+                      video.snippet.thumbnails.high.url &&
+                      video.snippet.thumbnails.high.url
+                    }
+                    title={video.snippet.title && video.snippet.title}
+                    channel={
+                      video.snippet.channelTitle && video.snippet.channelTitle
+                    }
+                    // views={video.snippet.viewCount ? video.snippet.viewCount : ''}
+                    video_id={video.id.videoId && video.id.videoId}
+                    uploadDate={
+                      video.snippet.publishedAt && video.snippet.publishedAt
+                    }
+                    onClick={() => handleOnClick(video.id.videoId)}
+                  />
+                );
+              })}
           </div>
-          <div>
-            <Comment videoId = {params.videoId}/>
-          </div>
-
         </div>
       </>
     );
@@ -104,5 +116,3 @@ function SelectedVideo() {
 }
 
 export default SelectedVideo;
-
-

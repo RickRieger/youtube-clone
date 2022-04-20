@@ -1,29 +1,46 @@
 .video-responsive {
   overflow: hidden;
   position: relative;
+  margin: auto;
   height: 88vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
 }
 
 .video-responsive iframe {
   left: 0;
   top: 0;
+
   height: 100%;
   width: 100%;
-  position: absolute;
 }
 .bottom-container {
   display: flex;
   flex-direction: row;
   color: azure;
+  height: 100vh;
 }
 .comment-section {
+  padding: 20px;
   flex: 0.7;
-  background-color: rgb(46, 45, 45);
-  height: 500px;
+  background-color: #181818;
+  height: 100%;
 }
 
 .related-videos {
   flex: 0.3;
-  background-color: rgb(38, 38, 38);
-  height: 500px;
+  background-color: #181818;
+  height: 100%;
+}
+
+.comment-row-one {
+  margin-bottom: 10px;
+}
+.comment-row-two {
+  margin-bottom: 10px;
+}
+.description {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
