@@ -28,14 +28,6 @@ const Navbar = () => {
     setQuery('');
   };
 
-  const handleOnChange = (e) => {
-    console.log(e.target.value);
-    setQuery(e.target.value);
-    if (e.key === 'Enter') {
-      handleSearchQuery();
-    }
-  };
-
   return (
     <div className='navBar'>
       <ul>
@@ -56,7 +48,7 @@ const Navbar = () => {
             value={query}
             className='search-field'
             placeholder='Search'
-            onChange={(e) => handleOnChange(e)}
+            onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 handleSearchQuery();

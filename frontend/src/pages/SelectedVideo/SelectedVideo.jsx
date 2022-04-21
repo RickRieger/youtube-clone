@@ -48,7 +48,20 @@ function SelectedVideo() {
     navigate(`/selected-video/${videoId}`);
     console.log(videoId);
   };
+  function abbreviateNumber(value) {
+    let newValue = value;
+    const suffixes = ['', 'K', 'M', 'B', 'T'];
+    let suffixNum = 0;
+    while (newValue >= 1000) {
+      newValue /= 1000;
+      suffixNum++;
+    }
 
+    newValue = newValue.toPrecision(3);
+
+    newValue += suffixes[suffixNum];
+    return newValue;
+  }
   console.log(videoInfo);
   console.log(relatedVideos);
   if (!relatedVideos) {
@@ -71,7 +84,7 @@ function SelectedVideo() {
               <h2>{videoInfo.snippet.title}</h2>
             </div>
             <div className='comment-row-two'>
-              {videoInfo.statistics.viewCount} views ·{' '}
+              {abbreviateNumber(videoInfo.statistics.viewCount)} views ·{' '}
               {moment(videoInfo.snippet.publishedAt).format('ll')}
             </div>
             <hr />
@@ -87,7 +100,6 @@ function SelectedVideo() {
                 }
               })
               .map((video, index) => {
-                console.log(video);
                 return (
                   <Video
                     key={index}

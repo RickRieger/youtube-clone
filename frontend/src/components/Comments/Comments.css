@@ -3,16 +3,16 @@
   flex-direction: column;
 }
 li {
-  color: black;
+  color: rgb(227, 227, 227);
 }
-.fun {
+.container-comments {
 }
 
-.comment-header-container{
+.comment-header-container {
   display: flex;
 }
 
-.username-text{
+.username-text {
   font-size: medium;
   font-weight: bold;
 }
@@ -22,4 +22,14 @@ li {
   color: gray;
   margin-left: 0.3rem;
   margin-top: 0.2rem;
+}
+.reply-container {
+  color: #107cfd;
+}
+.replies {
+  color: aliceblue;
+  margin-top: 10px;
+  margin-left: 70px;
+  display: flex;
+  flex-direction: column;
 }

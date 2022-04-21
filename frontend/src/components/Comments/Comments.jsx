@@ -16,12 +16,10 @@ const Comments = (props) => {
 
   const [comments, setComments] = useState([]);
   const [userComment, setUserComment] = useState([]);
-  const [updatePage, setUpdatePage] = useState(false);
 
   useEffect(() => {
     getAllComments();
-    setUpdatePage(false);
-  }, [updatePage, props.videoId]);
+  }, [props.videoId]);
 
   async function getAllComments() {
     try {
@@ -39,44 +37,49 @@ const Comments = (props) => {
     }
   }
 
-  async function postComment() {
+  const postComment = async (callBack) => {
     let body = {
       video: props.videoId,
       text: userComment,
     };
     try {
-      let response = axios.post(`http://127.0.0.1:8000/api/comments/`, body, {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      });
-      setUpdatePage(true);
+      let response = await axios.post(
+        `http://127.0.0.1:8000/api/comments/`,
+        body,
+        {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        }
+      );
+      callBack();
     } catch (e) {
       console.log(e.message);
     }
-  }
+  };
+
+  const onSuccess = () => {
+    setUserComment('');
+    getAllComments();
+  };
 
   function handleSubmit(e) {
     e.preventDefault();
     if (userComment.length === 0) {
-      e.preventDefault();
       alert('cant be empty');
       return;
     }
-
-    postComment(userComment);
-    setUserComment('');
+    postComment(onSuccess);
   }
 
-  console.log('comments===========>', comments);
-
   return (
-    <div className='fun'>
+    <div className='container-comments'>
       <Box
         component='form'
         sx={{
           '& > :not(style)': { m: 1 },
           marginTop: '40px',
+          marginBottom: '40px',
         }}
         noValidate
         autoComplete='off'
@@ -107,37 +110,25 @@ const Comments = (props) => {
         >
           COMMENT
         </Button>
-        <Comment videoId={params.videoId} />
       </Box>
-      {/* <input
-        type='text'
-        value={userComment}
-        className='search-field'
-        placeholder='Comment...'
-        onChange={(e) => setUserComment(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            handleSubmit();
-          }
-        }}
-      /> */}
-
       <div className='comments'>
-        {comments.slice(0).reverse().map((comment, index) => {
-          console.log('============well then===========');
-          return (
-            <Comment
-              key={index}
-              comment={comment.text}
-              commentId={comment.id}
-              userId={comment.user_id}
-              username={comment.username}
-              likes={comment.likes}
-              dislikes={comment.dislikes}
-              created={comment.created}
-            />
-          );
-        })}
+        {comments
+          .slice(0)
+          .reverse()
+          .map((comment, index) => {
+            return (
+              <Comment
+                key={index}
+                comment={comment.text}
+                commentId={comment.id}
+                userId={comment.user_id}
+                username={comment.username}
+                likes={comment.likes}
+                dislikes={comment.dislikes}
+                created={comment.created}
+              />
+            );
+          })}
       </div>
     </div>
   );

@@ -16,11 +16,13 @@ from comments.models import Comments
 @api_view(['GET','POST'])
 @permission_classes([IsAuthenticated])
 def replies(request,pk):
+    
     if request.method == 'GET':
         replies = Reply.objects.filter(comment = pk)
         serializer = ReplySerializer(replies, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     elif request.method == 'POST':
+        print('=============reply============', pk, request.data)
         comment = get_object_or_404(Comments,pk=pk)
         serializer = ReplySerializer(data=request.data)
         if serializer.is_valid():

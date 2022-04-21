@@ -2,13 +2,18 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import useAuth from '../../hooks/useAuth';
 import moment from 'moment';
-import "./Comments.css"
+import './Comments.css';
 import { Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import Input from '@mui/material/Input';
-
-//NOTES: Attempted to use the axios requests to get the replies and map them inside this component. I was 
-//getting some errors with the axios.post call but the axios.get seems to working fine. 
+import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownAltOutlinedIcon from '@mui/icons-material/ThumbDownAltOutlined';
+import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+//NOTES: Attempted to use the axios requests to get the replies and map them inside this component. I was
+//getting some errors with the axios.post call but the axios.get seems to working fine.
 
 function Comment(props) {
   useEffect(() => {
@@ -20,6 +25,8 @@ function Comment(props) {
     props;
   const [replies, setReplies] = useState([]);
   const [reply, setReply] = useState('');
+  const [replyBool, setReplyBool] = useState(false);
+  const [showReplyBool, setShowReplyBool] = useState(false);
 
   const getAllRelplies = async () => {
     try {
@@ -39,22 +46,24 @@ function Comment(props) {
 
   async function postReply() {
     let body = {
-      reply : reply,
+      text: reply,
     };
     try {
-      let response = axios.post(`http://127.0.0.1:8000/api/replies/${commentId}/`, body, {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      });
+      let response = await axios.post(
+        `http://127.0.0.1:8000/api/replies/${commentId}/`,
+        body,
+        {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        }
+      );
+      getAllRelplies();
+      setReply('');
     } catch (e) {
       console.log(e.message);
     }
   }
-
-
-
-  console.log(replies);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -67,23 +76,40 @@ function Comment(props) {
     postReply(reply);
     setReply('');
   }
-
+  console.log(replies);
   return (
     <div>
-        <div className="comment-header-container"> 
-          <div className="username-text">
-            {username} 
-          </div>
-          <div className="date-text">
-            {moment(created).startOf('hour').fromNow()}
-          </div>
+      <div className='comment-header-container'>
+        <div className='username-text'>{username}</div>
+        <div className='date-text'>
+          {moment(created).startOf('hour').fromNow()}
         </div>
-      <h3> {comment} </h3>
+      </div>
+      <h3 style={{ marginBottom: '20px' }}> {comment} </h3>
+      <ThumbUpOutlinedIcon />
+      <span style={{ marginLeft: '10px', verticalAlign: 'super' }}>
+        {likes}
+      </span>
+      <ThumbDownAltOutlinedIcon style={{ marginLeft: '20px' }} />
+      <span
+        style={{
+          marginLeft: '10px',
+          verticalAlign: 'super',
+          marginRight: '20px',
+        }}
+      >
+        {dislikes}
+      </span>
+      <Button variant='text' onClick={() => setReplyBool(true)}>
+        Reply
+      </Button>
       <Box
         component='form'
         sx={{
           '& > :not(style)': { m: 1 },
           marginTop: '40px',
+          display: replyBool ? 'block' : 'none',
+          right: '0px',
         }}
         noValidate
         autoComplete='off'
@@ -94,7 +120,7 @@ function Comment(props) {
           sx={{
             color: 'white',
             border: 'white',
-            width: '80%',
+            width: '60%',
           }}
           type='text'
           value={reply}
@@ -105,7 +131,9 @@ function Comment(props) {
             }
           }}
         />
-        <Button variant='text'>CANCEL</Button>
+        <Button variant='text' onClick={() => setReplyBool(false)}>
+          CANCEL
+        </Button>
         <Button
           variant='outlined'
           onClick={(e) => {
@@ -114,16 +142,29 @@ function Comment(props) {
         >
           REPLY
         </Button>
-        {/*<Comment videoId={params.videoId} /> */}
       </Box>
-    <div className='replies'>
-      {replies.reverse().map((reply) => {
-        return (
-          reply.text
-        );
-      })}
-    </div>
-      
+      <div className='reply-container'>
+        {showReplyBool ? (
+          <ArrowDropUpIcon onClick={() => setShowReplyBool(false)} />
+        ) : (
+          <ArrowDropDownIcon onClick={() => setShowReplyBool(true)} />
+        )}
+        {showReplyBool ? (
+          <span>Hide 6 replies </span>
+        ) : (
+          <span>Show 6 replies </span>
+        )}
+
+        {showReplyBool ? (
+          <div className='replies'>
+            {replies.reverse().map((reply, index) => {
+              return <div key={index}>{reply.text}</div>;
+            })}
+          </div>
+        ) : (
+          ''
+        )}
+      </div>
     </div>
   );
 }

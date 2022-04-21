@@ -8,7 +8,6 @@ const Video = (props) => {
   const handleOnClick = (videoId) => {
     navigate(`/selected-video/${videoId}`);
   };
-
   return (
     <div
       className={props.suggest ? 'videoContainer' : 'videoContainer-suggested'}
@@ -25,7 +24,8 @@ const Video = (props) => {
           <p className='videoViewsText'>
             {' '}
             {props.channel}
-            <br></br> views: {props.views} ·{' '}
+            <br></br> {props.views ? 'views:' : ''} {props.views}{' '}
+            {props.views ? '·' : 'Uploaded'}{' '}
             {moment(props.uploadDate).startOf('day').fromNow()}
           </p>
         </div>

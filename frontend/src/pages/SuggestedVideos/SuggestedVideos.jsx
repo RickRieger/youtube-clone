@@ -18,8 +18,6 @@ function SuggestedVideos() {
     }
   }, [params.query]);
 
-  console.log(process.env.REACT_APP_API_KEY);
-
   const getAllPopularVideos = async () => {
     try {
       let result = await axios.get(
@@ -43,8 +41,23 @@ function SuggestedVideos() {
       console.log(e.message);
     }
   };
+
+  function abbreviateNumber(value) {
+    let newValue = value;
+    const suffixes = ['', 'K', 'M', 'B', 'T'];
+    let suffixNum = 0;
+    while (newValue >= 1000) {
+      newValue /= 1000;
+      suffixNum++;
+    }
+
+    newValue = newValue.toPrecision(3);
+
+    newValue += suffixes[suffixNum];
+    return newValue;
+  }
+  console.log(abbreviateNumber);
   console.log(videos);
-  // const viewCount = videos.statistics.viewCount;
   if (!videos) {
     return <div>'loading...'</div>;
   } else {
@@ -58,8 +71,12 @@ function SuggestedVideos() {
                 image={video.snippet.thumbnails.high.url}
                 title={video.snippet.title}
                 channel={video.snippet.channelTitle}
-                // views={viewCount ? viewCount : ''}
-                video_id={video.id}
+                views={
+                  video.statistics
+                    ? abbreviateNumber(video.statistics.viewCount)
+                    : ''
+                }
+                video_id={video.id.videoId ? video.id.videoId : video.id}
                 uploadDate={video.snippet.publishedAt}
                 suggest={true}
               />
