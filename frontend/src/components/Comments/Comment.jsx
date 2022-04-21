@@ -144,16 +144,14 @@ function Comment(props) {
         </Button>
       </Box>
       <div className='reply-container'>
-        {showReplyBool ? (
-          <ArrowDropUpIcon onClick={() => setShowReplyBool(false)} />
-        ) : (
-          <ArrowDropDownIcon onClick={() => setShowReplyBool(true)} />
-        )}
-        {showReplyBool ? (
-          <span>Hide 6 replies</span>
-        ) : (
-          <span>Show 6 replies</span>
-        )}
+        <div onClick={() => setShowReplyBool(!showReplyBool)}>
+          {showReplyBool ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+          {showReplyBool ? (
+            <span>Hide 6 replies</span>
+          ) : (
+            <span>Show 6 replies</span>
+          )}
+        </div>
 
         {showReplyBool ? (
           <div className='replies'>
