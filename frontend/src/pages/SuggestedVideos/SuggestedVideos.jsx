@@ -56,7 +56,7 @@ function SuggestedVideos() {
     newValue += suffixes[suffixNum];
     return newValue;
   }
-  console.log(abbreviateNumber);
+
   console.log(videos);
   if (!videos) {
     return <div>'loading...'</div>;

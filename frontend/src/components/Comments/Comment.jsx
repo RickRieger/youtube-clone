@@ -150,9 +150,9 @@ function Comment(props) {
           <ArrowDropDownIcon onClick={() => setShowReplyBool(true)} />
         )}
         {showReplyBool ? (
-          <span>Hide 6 replies </span>
+          <span>Hide 6 replies</span>
         ) : (
-          <span>Show 6 replies </span>
+          <span>Show 6 replies</span>
         )}
 
         {showReplyBool ? (
