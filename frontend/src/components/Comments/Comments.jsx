@@ -123,7 +123,7 @@ const Comments = (props) => {
       /> */}
 
       <div className='comments'>
-        {comments.reverse().map((comment, index) => {
+        {comments.slice(0).reverse().map((comment, index) => {
           console.log('============well then===========');
           return (
             <Comment

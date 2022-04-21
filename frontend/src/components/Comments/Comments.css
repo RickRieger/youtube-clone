@@ -7,3 +7,19 @@ li {
 }
 .fun {
 }
+
+.comment-header-container{
+  display: flex;
+}
+
+.username-text{
+  font-size: medium;
+  font-weight: bold;
+}
+
+.date-text {
+  font-size: small;
+  color: gray;
+  margin-left: 0.3rem;
+  margin-top: 0.2rem;
+}
